@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class BlackjackController {
     private final Scanner sc = new Scanner(System.in);
-    private final Deck deck = new Deck();
+    private Deck deck = new Deck();
     private final Random rand = new Random();
 
     public static void main(String[] args) {
@@ -17,13 +17,15 @@ public class BlackjackController {
     public void playBlackJack(){
         var name = interactWithUser("What is your name?");
         var bet = interactWithUser("Do you want to bet?");
-        var initialSum = bet.equals("yes") ? rand.nextInt(2,10) : 0;
+        var initialSum = bet.equals("yes") ? rand.nextInt(2,100) : 0;
 
         Player playerUser = new Player(name, initialSum);
         Player playerComp = new Player("computer", initialSum);
         Player[] players = {playerUser, playerComp};
+        int gameCount = 0;
 
         do {
+            System.out.println("##### Game <" + ++gameCount + "> #####");
             //Deal players two cards from the deck
             deal2Cards(players);
             //Take actual bets.
@@ -35,10 +37,12 @@ public class BlackjackController {
 
             } while (!checkPlay(players));
 
-            //reset hand
-            Arrays.stream(players).forEach(Player::resetHand);
             //Consistently print out the current amount of money both the user and computer have after each game.
             Arrays.stream(players).forEach(System.out::println);
+
+            //reset hand and deck
+            Arrays.stream(players).forEach(Player::resetHand);
+            this.deck = new Deck();
 
             //If either user runs out of money, stop the game.
         } while (!checkPots(players));
@@ -97,7 +101,7 @@ public class BlackjackController {
                         .max(Comparator.comparingInt(p -> p.getHand().getHandValue()))
                         .orElseThrow();
                 updatePotValues(winner, players);
-                System.out.println(winner);
+                System.out.println("WINNER: " + winner);
             }
             status = true;
 
