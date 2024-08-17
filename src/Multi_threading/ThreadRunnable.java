@@ -10,7 +10,7 @@ public class ThreadRunnable {
         var myThread = new Thread(() -> System.out.println("My runnable via lambda fuction"), "MyRunnable");
         myThread.start();
 
-        var myRunnable = new MyRunnable();
+        new MyRunnable();
 
         System.out.println("***** Ending Main Thread ******");
     }

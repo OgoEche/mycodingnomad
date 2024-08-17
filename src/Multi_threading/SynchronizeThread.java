@@ -1,6 +1,7 @@
 package Multi_threading;
 
 import java.util.Random;
+import java.util.stream.IntStream;
 
 public class SynchronizeThread {
     // Demonstrate the use of a synchronized block and a synchronized method - ensure that the synchronization is
@@ -25,10 +26,10 @@ public class SynchronizeThread {
         }
 
         //start all threads
-        for (int i=0;i< threads.length;i++){
+        IntStream.range(0, threads.length).forEach(i -> {
             System.out.printf("calling  %s.start()\n", threads[i].getName());
             threads[i].start();
-        }
+        });
 
 
     }
