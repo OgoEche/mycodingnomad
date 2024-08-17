@@ -1,1 +1,3 @@
 Relearning Java...
+Looking at different construct and praticing for competency
+Analysing various design pattern and best practices
