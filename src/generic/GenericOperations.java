@@ -1,11 +1,24 @@
 package generic;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.ToDoubleBiFunction;
 
 public class GenericOperations {
 
     public static void main(String[] args){
+
+        System.out.println("Generic sum: " + sum(4.6, 7));
+
+        var data = List.of("many","hannah","noon","accident","wow");
+        System.out.println("Number of Palindromes: " + numOfPalindromes(data));
+
+        Integer[] nums = {1,2,3,4,5,6,7,8};
+        System.out.println("Exchange Position: " + exchangePositions(nums,2, 4));
+
+        System.out.println("largest within range: " + largestWithRange(data,2,4));
+        System.out.println("largest within range: " + largestWithRange(Arrays.stream(nums).toList(),2,4));
 
     }
 
@@ -19,10 +32,34 @@ public class GenericOperations {
 
 
     // Write a generic method to count the number of elements in a "Collection" of Strings that are palindromes
-    public static <T> Integer numOfPalindromes(List<T> arrays) {
-        return 1;
-
+    public static <T extends String> Integer numOfPalindromes(List<T> arrays) {
+        var count = 0;
+        for (T word : arrays) {
+            if (word.contentEquals(new StringBuilder(word).reverse())) {
+                count++;
+            }
+        }
+        return count;
     }
+
+    // Write a generic method to exchange the positions of two different elements in an array.
+    public static <T, U extends Integer> String exchangePositions(T[] array, U p1, U p2) {
+        T temp = array[p1.intValue()];
+        array[p1.intValue()] = array[p2.intValue()];
+        array[p2.intValue()] = temp;
+        return Arrays.toString(array);
+    }
+
+
+    // Write a generic method to find the largest element within the range (begin, end) of a list.
+    public static <T extends Comparable<T>,U extends Integer> T largestWithRange(List<T> list, U begin, U end) {
+        return list.subList(begin,end)
+                .stream()
+                .max(Comparator.naturalOrder())
+                .orElseThrow();
+    }
+
+
 
 
 
