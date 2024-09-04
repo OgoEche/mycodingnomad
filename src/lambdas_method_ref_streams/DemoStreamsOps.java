@@ -4,10 +4,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
+
 
 /**
  *  Stream API demo
@@ -41,7 +40,7 @@ public class DemoStreamsOps {
 
         System.out.println("Demonstrate how to Stream a text file and print out each line:" );
         var file = Path.of("src/lambdas_method_ref_streams/stream_text_lab.csv");
-        try ( var lines = Files.lines(file);){
+        try ( var lines = Files.lines(file)){
             lines.forEach(System.out::println);
          } catch (IOException e) {
              System.out.println(e.getMessage());
@@ -52,7 +51,7 @@ public class DemoStreamsOps {
                 then print out the element at the 1 index for each array.
                 """;
         System.out.println(message + " :");
-        try (var lines = Files.lines(file);) {
+        try (var lines = Files.lines(file)) {
             lines.forEach(line -> System.out.println(line.split(",")[1]));
 
         } catch (IOException e) {
